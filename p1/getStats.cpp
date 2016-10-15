@@ -38,17 +38,14 @@ struct CLIParams{
    Redefinir en función de los parámetros utilizados realmente.
    \arg[in] programe es el nombre del programa en la cli.
  */
-static void
-mostrarUso (const char * progname) throw ()
-{
-        std::cout << "Esto programa sirve para ...." << std::endl;
-        std::cout << "Uso: " << progname << " [-h] [-v] [-i valor] [-c valor] [-f valor] arg1 arg2 ... argn" << std::endl;
-        std::cout << "Donde: " << std::endl;
-        std::cout << "-h\tMuestra  esta la ayuda." << std::endl;
-        std::cout << "-v\tActiva el modo verbose." << std::endl;
-        std::cout << "-i\tPermite espacificar un valor entero. Valor por defecto 0." << std::endl;
-        std::cout << "-c\tPermite especificar una cadena. Valor por defecto NUL." << std::endl;
-        std::cout << "-f\tPermite especificar un valor flotante. Valor por defecto 0.0" << std::endl;
+ static void show_usage (const char * progname) throw ()
+ {
+    std::cout << "\nUsage: \e[1m" << progname << "\e[m [-h] [-w \"x,y,w,h\"] \e[1mimage\e[m [mask]" << std::endl;
+    std::cout << std::endl;
+    std::cout << "\e[1m-h\e[m\tDisplays this help menu." << std::endl;
+    std::cout << "\e[1m-w\e[m\tAllows you to specify an area of interest with \e[1mx\e[m and \e[1my\e[m are the top-left coords of the area and \e[1mw\e[m and \e[1mh\e[m are the width and the height of that area." << std::endl;
+    std::cout << "\e[1mimage\e[m\tName of the image to be studied.\e[1;4mThis param is required.\e[m" << std::endl;
+    std::cout << "\e[1mmask\e[m\tName of the image used as a mask for the original image." << std::endl;
 }
 
 /*!\brief Parsea la linea de comandos.
@@ -58,59 +55,55 @@ mostrarUso (const char * progname) throw ()
    \return El índice del primer argumento no opcional de la línea.
    \warning Esta función no retorna si hay algún error en la cli.
  */
-static int
-parseCLI (int argc, char* const* argv, CLIParams& params) throw ()
+static int parseCLI (int argc, char* const* argv, CLIParams& params) throw ()
 {
-        // Esta es una forma habitual de recoger argumentos con getopt
-        // se usa una iteracion y cada elemento se pasa por un switch-case
-        int opcion;
-        while ((opcion = getopt (argc, argv, "hvi:c:f:")) != -1)
+    // Esta es una forma habitual de recoger argumentos con getopt
+    // se usa una iteracion y cada elemento se pasa por un switch-case
+    int option;
+    while ((option = getopt (argc, argv, "hw:")) != -1)
+    {
+        switch (option)
         {
-                switch (opcion)
-                {
 
-                case 'h':
-                        mostrarUso(argv[0]);
-                        exit (EXIT_SUCCESS);
-                        break;
+        case 'h':
+            show_usage(argv[0]);
+            exit (EXIT_SUCCESS);
+            break;
 
-                case 'v':
-                        // params.verbose=true;
-                        break;
+        case 'w':
+            params.w_flag = true;
+            params.w_value = optarg;
+            do {
+                params.w_values.push_back(atoi(params.w_value.substr(0,params.w_value.find(",")).c_str()));
+                params.w_value.erase(0, params.w_value.find(",")+1);
+            } while(params.w_value.find(",") < 100);
+            if(params.w_values.size() != 4){
+                std::cerr << "\e[1;31m[Error]\e[m - The option \e[1m-w\e[m requieres 4 params." << std::endl;
+                show_usage(argv[0]);
+                exit(EXIT_FAILURE);
+            }
+            break;
 
-                case 'i':
-                        // params.entero = atoi (optarg);
-                        break;
+        case '?': // en caso de error getopt devuelve el caracter ?
 
-                case 'c':
-                        // params.cadena = optarg;
-                        break;
+            if (isprint (optopt))
+                std::cerr << "Error: Opción desconocida \'" << optopt
+                          << "\'" << std::endl;
+            else
+                std::cerr << "Error: Caracter de opcion desconocido \'x" << std::hex << optopt
+                          << "\'" << std::endl;
+            show_usage(argv[0]);
+            exit (EXIT_FAILURE);
 
-                case 'f':
-                        // params.flotante = atof(optarg);
-                        break;
+        // en cualquier otro caso lo consideramos error grave y salimos
+        default:
+            std::cerr << "Error: línea de comandos errónea." << std::endl;
+            show_usage(argv[0]);
+            exit(EXIT_FAILURE);
+        } // case
 
-
-                case '?': // en caso de error getopt devuelve el caracter ?
-
-                        if (isprint (optopt))
-                                std::cerr << "Error: Opción desconocida \'" << optopt
-                                          << "\'" << std::endl;
-                        else
-                                std::cerr << "Error: Caracter de opcion desconocido \'x" << std::hex << optopt
-                                          << "\'" << std::endl;
-                        mostrarUso(argv[0]);
-                        exit (EXIT_FAILURE);
-
-                // en cualquier otro caso lo consideramos error grave y salimos
-                default:
-                        std::cerr << "Error: línea de comandos errónea." << std::endl;
-                        mostrarUso(argv[0]);
-                        exit(EXIT_FAILURE);
-                } // case
-
-        }// while
-        return optind;
+    }// while
+    return optind;
 }
 
 
