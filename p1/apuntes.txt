@@ -1,0 +1,34 @@
+Crear imagen:
+    cv::Mat img = cv::imread("algo.png"[, flags]); // tif, png, jpg | Comprobar si img.empty() -> Falla al leer
+
+Acceder a elementos de la matriz:
+    /**
+     * // uchar = CV_8U
+     * Mirar http://docs.opencv.org/2.4/modules/core/doc/basic_structures.html#mat-type
+     * Type devuelve también los canales: CV_8UC3 por ejemplo.
+     * Si tiene varios, usar: cv::Vec3b en vez de uchar -> http://docs.opencv.org/2.4/modules/core/doc/basic_structures.html#vec
+     * Para saber los canales: http://docs.opencv.org/2.4/modules/core/doc/basic_structures.html#mat-channels
+     * Se almacena BGR en vez de RGB (El tipo de dato cv::Vec)
+     */
+    // Mirar recorrer imagenes con iteradores.
+    img.at<uchar>(y,x)
+
+Obtener ROI:
+    // Mirar http://docs.opencv.org/2.4/modules/core/doc/basic_structures.html#id6
+    // Mirar http://docs.opencv.org/2.4/modules/core/doc/basic_structures.html#rect
+
+Canales:
+    std::vector<cv::Mat> canales;
+    cv::split(img, canales);
+    canales.size();
+    canales[0] // Devuelve cv::Mat
+    // Mirar cv::Merge() para mezclar canales y poder guardarlo
+
+Clonar imágenes:
+    // Forma 1
+    img.copyTo(img2);
+    // Forma 2
+    img.convertTo(img2,type[,alpha=1, beta=0])
+
+GUI:
+    

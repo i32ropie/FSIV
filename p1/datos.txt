@@ -1,0 +1,219 @@
+Imagen gull.png sin máscara:
+
+# Band 0:
+Width    	= 256
+Height   	= 256
+Min. value 	= 0
+Max. value 	= 255
+Neg. values 	= 0
+Pos. values 	= 65530
+Zero values 	= 6
+Neg. area 	= 0
+Pos. area 	= 5.71419e+06
+Total area 	= 5.71419e+06
+Acc. sqr 	= 7.81714e+08
+Mean     	= 87.1916
+Variance 	= 4325.63
+Per. 0.5 	= 53
+Icd      	= 100
+Skewness   	= 0.98689
+Kurtosis   	= -0.297659
+
+Imagen gull.png con máscara:
+
+# Band 0:
+Width    	= 256
+Height   	= 256
+Min. value 	= 0
+Max. value 	= 255
+Neg. values 	= 0
+Pos. values 	= 13360
+Zero values 	= 2
+Neg. area 	= 0
+Pos. area 	= 1.22993e+06
+Total area 	= 1.22993e+06
+Acc. sqr 	= 1.67762e+08
+Mean     	= 92.0468
+Variance 	= 4082.57
+Per. 0.5 	= 85
+Icd      	= 88
+Skewness   	= 0.856871
+Kurtosis   	= 0.112422
+
+Imagen gull.png con máscara y ROI= 50:130:110:100
+
+Geometry: 110x100
+N channels: 1
+N Elements: 5473
+--------------------------------
+Channel: 0
+Min: 2
+Max: 255
+Sum: 312439
+SqrSum: 2.96864e+07
+Zeros: 0
+Mean: 57.0873
+Variance: 2165.2
+Median: 41
+Skewness: 1.7866
+
+
+
+Imagen cells.png sin máscara:
+
+# Band 0:
+Width    	= 454
+Height   	= 371
+Min. value 	= 8
+Max. value 	= 230
+Neg. values 	= 0
+Pos. values 	= 168434
+Zero values 	= 0
+Neg. area 	= 0
+Pos. area 	= 2.88941e+07
+Total area 	= 2.88941e+07
+Acc. sqr 	= 5.0858e+09
+Mean     	= 171.545
+Variance 	= 766.851
+Per. 0.5 	= 176
+Icd      	= 29
+Skewness   	= -2.04856
+Kurtosis   	= 7.64268
+
+# Band 1:
+Width    	= 454
+Height   	= 371
+Min. value 	= 11
+Max. value 	= 228
+Neg. values 	= 0
+Pos. values 	= 168434
+Zero values 	= 0
+Neg. area 	= 0
+Pos. area 	= 2.93087e+07
+Total area 	= 2.93087e+07
+Acc. sqr 	= 5.24967e+09
+Mean     	= 174.007
+Variance 	= 889.137
+Per. 0.5 	= 178
+Icd      	= 34
+Skewness   	= -1.73397
+Kurtosis   	= 5.80762
+
+# Band 2:
+Width    	= 454
+Height   	= 371
+Min. value 	= 4
+Max. value 	= 239
+Neg. values 	= 0
+Pos. values 	= 168434
+Zero values 	= 0
+Neg. area 	= 0
+Pos. area 	= 3.04102e+07
+Total area 	= 3.04102e+07
+Acc. sqr 	= 5.62342e+09
+Mean     	= 180.547
+Variance 	= 789.325
+Per. 0.5 	= 184
+Icd      	= 29
+Skewness   	= -2.19208
+Kurtosis   	= 8.99622
+
+Image cells.png con máscara:
+
+# Band 0:
+Width    	= 454
+Height   	= 371
+Min. value 	= 21
+Max. value 	= 230
+Neg. values 	= 0
+Pos. values 	= 16815
+Zero values 	= 0
+Neg. area 	= 0
+Pos. area 	= 2.95406e+06
+Total area 	= 2.95406e+06
+Acc. sqr 	= 5.28071e+08
+Mean     	= 175.68
+Variance 	= 541.332
+Per. 0.5 	= 178
+Icd      	= 31
+Skewness   	= -0.794002
+Kurtosis   	= 1.40725
+
+# Band 1:
+Width    	= 454
+Height   	= 371
+Min. value 	= 14
+Max. value 	= 227
+Neg. values 	= 0
+Pos. values 	= 16815
+Zero values 	= 0
+Neg. area 	= 0
+Pos. area 	= 2.85127e+06
+Total area 	= 2.85127e+06
+Acc. sqr 	= 4.97113e+08
+Mean     	= 169.567
+Variance 	= 810.683
+Per. 0.5 	= 170
+Icd      	= 39
+Skewness   	= -0.35717
+Kurtosis   	= 0.234337
+
+# Band 2:
+Width    	= 454
+Height   	= 371
+Min. value 	= 16
+Max. value 	= 237
+Neg. values 	= 0
+Pos. values 	= 16815
+Zero values 	= 0
+Neg. area 	= 0
+Pos. area 	= 3.00027e+06
+Total area 	= 3.00027e+06
+Acc. sqr 	= 5.44735e+08
+Mean     	= 178.428
+Variance 	= 559.182
+Per. 0.5 	= 179
+Icd      	= 31
+Skewness   	= -0.493762
+Kurtosis   	= 1.09165
+
+Image cells con máscara y ROI= 50:130:110:100
+
+Geometry: 110x100
+N channels: 3
+N Elements: 4104
+--------------------------------
+Channel: 0
+Min: 73
+Max: 222
+Sum: 715088
+SqrSum: 1.26425e+08
+Zeros: 0
+Mean: 174.242
+Variance: 445.071
+Median: 175
+Skewness: -0.575222
+--------------------------------
+Channel: 1
+Min: 61
+Max: 216
+Sum: 688335
+SqrSum: 1.18289e+08
+Zeros: 0
+Mean: 167.723
+Variance: 691.758
+Median: 168
+Skewness: -0.461651
+--------------------------------
+Channel: 2
+Min: 73
+Max: 217
+Sum: 720299
+SqrSum: 1.28366e+08
+Zeros: 0
+Mean: 175.511
+Variance: 473.924
+Median: 178
+Skewness: -0.83783
+
+
