@@ -1,4 +1,4 @@
-CPPFLAGS = -ggdb3 -Wall -Wextra -std=c++11
+CPPFLAGS = -ggdb3 -Wall -std=c++11
 OPENCVFLAGS = `pkg-config opencv --cflags --libs`
 BIN = getStats
 # OJECT = getStats.o

@@ -5,6 +5,10 @@
 #include <vector>
 #include <iostream>
 #include <unistd.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include "stats.hpp"
 
 struct CLIParams{
     CLIParams(): w_flag(false), h_flag(false), image_flag(false), mask_flag(false), w_value(""), image_name(""), mask_name(""){};
@@ -28,9 +32,6 @@ void show_usage (const char * progname) throw ()
    std::cout << "\e[1m-w \"x,y,w,h\"\e[m  : Area of interest with x,y as top-left  (\e[4;1mOptional\e[m)"<< std::endl;
    std::cout << "\t\tcorner and w,h as width and height" << std::endl;
    std::cout << "\e[1m-h\e[m            : Displays the help." << std::endl;
-   // std::cout << "\e[1m-w\e[m\tAllows you to specify an area of interest with \e[1mx\e[m and \e[1my\e[m are the top-left coords of the area and \e[1mw\e[m and \e[1mh\e[m are the width and the height of that area." << std::endl;
-   // std::cout << "\e[1mimage\e[m\tName of the image to be studied.\e[1;4mThis param is required.\e[m" << std::endl;
-   // std::cout << "\e[1mmask\e[m\tName of the image used as a mask for the original image." << std::endl;
 }
 
 
@@ -55,10 +56,12 @@ int parseCLI (int argc, char* const* argv, CLIParams& params) throw (){
         case 'w':
             params.w_flag = true;
             params.w_value = optarg;
+            // while()
             do {
                 params.w_values.push_back(atoi(params.w_value.substr(0,params.w_value.find(",")).c_str()));
                 params.w_value.erase(0, params.w_value.find(",")+1);
             } while(params.w_value.find(",") < 100);
+            params.w_values.push_back(atoi(params.w_value.c_str()));
             if(params.w_values.size() != 4){
                 std::cerr << "\e[1;31m[Error]\e[m - The option \e[1m-w\e[m requieres 4 params." << std::endl;
                 show_usage(argv[0]);
@@ -87,6 +90,5 @@ int parseCLI (int argc, char* const* argv, CLIParams& params) throw (){
     }// while
     return optind;
 }
-
 
 #endif
