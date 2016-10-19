@@ -11,8 +11,8 @@
 #include "stats.hpp"
 
 struct CLIParams{
-    CLIParams(): w_flag(false), h_flag(false), image_flag(false), mask_flag(false), w_value(""), image_name(""), mask_name(""){};
-    bool w_flag, h_flag, image_flag, mask_flag;
+    CLIParams(): w_flag(false), h_flag(false), image_flag(false), mask_flag(false), i_flag(false), w_value(""), image_name(""), mask_name(""){};
+    bool w_flag, h_flag, image_flag, mask_flag, i_flag;
     std::string w_value, image_name, mask_name;
     std::vector<int> w_values;
 };
@@ -24,12 +24,12 @@ struct CLIParams{
  */
 void show_usage (const char * progname) throw ()
 {
-   // std::cout << "Usage: \e[1m" << progname << "\e[m [-h] [-w \"x,y,w,h\"] \e[1mimage\e[m [mask]" << std::endl;
    std::cout << std::endl << "The program syntaxis is:" << std::endl << std::endl;
-   std::cout << "\t\e[1m" << progname << " [-h] [-w \"x,y,w,h\"] iamge_name [mask_name]" << std::endl << std::endl;
+   std::cout << "\t\e[1m" << progname << " [-h] [-w \"x,y,w,h\" / -i] image_name [mask_name]" << std::endl << std::endl;
    std::cout << "\e[1mimage_name\e[m    : Name of the image to study.            (\e[4;1mRequired\e[m)" << std::endl;
    std::cout << "\e[1mmask_name\e[m     : Name of the mask to be applied.        (\e[4;1mOptional\e[m)" << std::endl;
-   std::cout << "\e[1m-w \"x,y,w,h\"\e[m  : Area of interest with x,y as top-left  (\e[4;1mOptional\e[m)"<< std::endl;
+   std::cout << "\e[1m-i\e[m            : Interactive mode.                      (\e[4;1mOptional\e[m)" << std::endl;
+   std::cout << "\e[1m-w \"x,y,w,h\"\e[m  : Area of interest with x,y as top-left  (\e[4;1mOptional\e[m)" << std::endl;
    std::cout << "\t\tcorner and w,h as width and height" << std::endl;
    std::cout << "\e[1m-h\e[m            : Displays the help." << std::endl;
 }
@@ -46,7 +46,7 @@ int parseCLI (int argc, char* const* argv, CLIParams& params) throw (){
     // Esta es una forma habitual de recoger argumentos con getopt
     // se usa una iteracion y cada elemento se pasa por un switch-case
     int option;
-    while ((option = getopt (argc, argv, "hw:")) != -1){
+    while ((option = getopt (argc, argv, "hiw:")) != -1){
         switch (option){
         case 'h':
             show_usage(argv[0]);
@@ -68,7 +68,9 @@ int parseCLI (int argc, char* const* argv, CLIParams& params) throw (){
                 exit(EXIT_FAILURE);
             }
             break;
-
+        case 'i':
+            params.i_flag = true;
+            break;
         case '?': // en caso de error getopt devuelve el caracter ?
 
             if (isprint (optopt))
