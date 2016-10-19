@@ -54,13 +54,13 @@ namespace fsiv {
             inline void set_var(const double &var) { _var = var; }
             inline void set_skew_coef(const double &skew_coef) { _skew_coef = skew_coef; }
             void calculate_stats(const cv::Mat &channel, const bool &mask_flag, const cv::Mat &mask){
-                *this = *(new Stats());
+                *this = *(new Stats()); // We do this so if we call this function for multiple images (getStats.cpp line 139)
                 double counter = 0;
                 this->set_width(channel.cols);
                 this->set_height(channel.rows);
                 for( int i = 0 ; i < channel.rows ; ++i ){
                     for( int j = 0 ; j < channel.cols ; ++j ){
-                        if( !mask_flag || (mask.at<uchar>(i,j) == 255) ){
+                        if( !mask_flag || (mask.at<uchar>(i,j) == 255) ){ // If mask, only we only want white pixels
                             counter++;
                             this->set_area_total(this->get_area_total() + channel.at<uchar>(i,j));
                             this->set_acc_sq(this->get_acc_sq() + pow(channel.at<uchar>(i,j), 2));
@@ -82,15 +82,17 @@ namespace fsiv {
                         }
                     }
                 }
+                // If mask, we take care about the studied pixels only
                 mask_flag? this->set_med(this->get_area_total() / counter) : this->set_med(this->get_area_total() / (this->get_height() * this->get_width()) );
                 for( int i = 0 ; i < channel.rows ; ++i ){
                     for( int j = 0 ; j < channel.cols ; ++j ){
-                        if( !mask_flag || (mask.at<uchar>(i,j) == 255) ){
+                        if( !mask_flag || (mask.at<uchar>(i,j) == 255) ){ // If mask, only we only want white pixels
                             this->set_var(this->get_var() + pow(channel.at<uchar>(i,j) - this->get_med(), 2));
                             this->set_skew_coef(this->get_skew_coef() + pow(channel.at<uchar>(i,j) - this->get_med(), 3));
                         }
                     }
                 }
+                // If mask, we take care about the studied pixels only
                 mask_flag? this->set_var(this->get_var() / counter) : this->set_var(this->get_var() / (this->get_height() * this->get_width()));
                 mask_flag? this->set_skew_coef(this->get_skew_coef() / (counter * pow(sqrt(this->get_var()), 3))) : this->set_skew_coef(this->get_skew_coef() / ((this->get_height() * this->get_width()) * pow(sqrt(this->get_var()), 3)));
             }
