@@ -104,8 +104,12 @@ int main (int argc, char* const* argv){
             while(true){
                 cv::setMouseCallback("Image", mouse_handler, NULL);
                 int key = cv::waitKey(0)%256;
-                if(key == 10 && !(p1.x == p2.x && p1.y == p2.y))
-                    break;
+                if(key == 10){
+                    if(p1.x == p2.x && p1.y == p2.y)
+                        std::cout << "Select an area with your mouse, please." << std::endl;
+                    else
+                        break;
+                }
                 if(key == 27)
                     return EXIT_SUCCESS;
             }
