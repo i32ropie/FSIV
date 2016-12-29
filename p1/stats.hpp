@@ -54,7 +54,6 @@ namespace fsiv {
             inline void set_var(const double &var) { _var = var; }
             inline void set_skew_coef(const double &skew_coef) { _skew_coef = skew_coef; }
             void calculate_stats(const cv::Mat &channel, const bool &mask_flag, const cv::Mat &mask){
-                *this = *(new Stats()); // We do this so if we call this function for multiple images (getStats.cpp line 139)
                 double counter = 0;
                 this->set_width(channel.cols);
                 this->set_height(channel.rows);

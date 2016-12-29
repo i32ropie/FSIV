@@ -1,7 +1,6 @@
 #include <ctype.h>
 #include <vector>
 #include <stdlib.h>
-// #include <unistd.h>
 #include <iostream>
 #include <exception>
 #include <algorithm>
@@ -67,7 +66,6 @@ int main (int argc, char* const* argv){
         cv::Mat mask;
         std::vector<cv::Mat> img_channels, mask_channels;
         cv::Mat img_roi;
-        fsiv::Stats stats;
         cv::Rect rect;
         img = cv::imread(params.image_name, -1);
         if(img.empty()){
@@ -98,6 +96,7 @@ int main (int argc, char* const* argv){
                 }
                 cv::merge(aux3, aux4);
                 img = aux4.clone();
+//                img *= mask/255;
             }
             cv::namedWindow("Image", cv::WINDOW_AUTOSIZE);
             cv::imshow("Image", img);
@@ -135,6 +134,7 @@ int main (int argc, char* const* argv){
         if(img_channels.size() == 3) // BGR to RGB
             std::swap(img_channels[0], img_channels[2]);
         for( uint i = 0 ; i < img_channels.size() ; ++i ){
+            fsiv::Stats stats;
             std::cout << "\e[1mChannel " << i << ":" << std::endl << std::endl;
             stats.calculate_stats(img_channels[i], params.mask_flag, mask_channels[i]);
             std::cout << stats << std::endl;
